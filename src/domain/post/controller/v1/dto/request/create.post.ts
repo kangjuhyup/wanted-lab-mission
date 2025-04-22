@@ -1,7 +1,3 @@
-export class PostIdParam {
-    readonly postId: number;
-}
-
 export class CreatePostBody {
     readonly title: string;
     readonly content: string;

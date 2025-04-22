@@ -3,8 +3,9 @@ import { ResponseDto } from "src/common/dto/response.dto";
 import { GetPostsQuery } from "./dto/request/get.posts";
 import { PostFacade } from "../../post.facade";
 import { PostAuthGuard } from "@/common/guard/post.author.guard";
-import { CreatePostBody, PostIdParam } from "./dto/request/create.post";
+import { CreatePostBody } from "./dto/request/create.post";
 import { UpdatePostBody } from "./dto/request/update.post";
+import { PostIdParam } from "./dto/request/post";
 
 @Controller('v1/posts')
 export class PostController {
