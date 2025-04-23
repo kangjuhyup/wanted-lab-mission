@@ -7,11 +7,14 @@ import { CreateCommentBody } from "./controller/v1/dto/request/create.comment";
 import { CreateCommentResponse } from "./controller/v1/dto/response/create.comment";
 import { EventEmitter2 } from "@nestjs/event-emitter";
 import { NotificationCommentPayload } from "../notification/payload/notification.comment.payload";
+import { Transaction } from "@/database/transaction/transaction.decorator";
+import { TransactionService } from "@/database/transaction/transaction.service";
 
 @Injectable()
 export class CommentFacade {
 
     constructor(
+        private readonly transactionService : TransactionService,
         private readonly commentService : CommentService,
         private readonly eventEmitter: EventEmitter2
     ) {}
@@ -35,6 +38,7 @@ export class CommentFacade {
         );
     }
 
+    @Transaction()
     async createComment(
         param : {
             postId: number, commentId?: number, body: CreateCommentBody
