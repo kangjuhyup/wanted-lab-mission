@@ -1,9 +1,9 @@
 import { IsNotEmpty, IsString, MaxLength } from "class-validator";
 
 export class CreatePostBody {
-    @MaxLength(255)
-    @IsString()
     @IsNotEmpty()
+    @IsString()
+    @MaxLength(255)
     readonly title: string;
 
     @IsString()
@@ -12,6 +12,7 @@ export class CreatePostBody {
 
     @IsString()
     @IsNotEmpty()
+    @MaxLength(20)
     readonly author: string;
 
     @IsString()
