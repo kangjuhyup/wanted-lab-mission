@@ -32,11 +32,11 @@
 ### 설치 방법
 
 ```bash
-# DB 실행 및 마이그레이션
-$ pnpm run run:db
-
 # 패키지 설치
 $ pnpm install
+
+# DB 실행 및 마이그레이션
+$ pnpm run run:db
 
 # 개발 모드 실행
 $ pnpm run start:dev
