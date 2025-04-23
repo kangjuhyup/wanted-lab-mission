@@ -32,11 +32,10 @@ import {
         throw new NotFoundException('게시글을 찾을 수 없습니다.');
       }
   
-      if (!post.checkPassword(password)) {
+      if (!(await post.checkPassword(password))) {
         throw new UnauthorizedException('게시글 비밀번호가 일치하지 않습니다.');
       }
   
       return true;
     }
   }
-  
