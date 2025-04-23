@@ -6,7 +6,6 @@ import { AppService } from './app.service';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { EventModule } from './domain/event.module';
 import { RouterModule } from './domain/router.module';
-import { APP_INTERCEPTOR } from '@nestjs/core';
 
 @Module({
   imports: [
