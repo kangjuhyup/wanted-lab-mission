@@ -35,6 +35,23 @@ export class CommentController {
     }
 
     @Post(':postId')
-    createComment(@Param() postIdParam: PostIdParam, @Body() body: CreateCommentBody) {
+    async createComment(@Param() postIdParam: PostIdParam, @Body() body: CreateCommentBody) {
+        return ResponseDto.Success(
+            await this.commentFacade.createComment({
+                postId: postIdParam.postId,
+                body
+            })
+        );
+    }
+
+    @Post(':postId/:commentId')
+    async createChildComment(@Param() commentIdParam: CommentIdParam, @Body() body: CreateCommentBody) {
+        return ResponseDto.Success(
+            await this.commentFacade.createComment({
+                postId: commentIdParam.postId,
+                commentId: commentIdParam.commentId,
+                body
+            })
+        );
     }
 }

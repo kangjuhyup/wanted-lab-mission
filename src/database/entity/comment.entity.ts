@@ -32,12 +32,18 @@ export class CommentEntity extends DefaultEntity {
     post: PostEntity;
 
     static of(param : {
+        postId : number,
+        parentId? : number,
         content : string,
         author : string
     }) {
         const comment = new CommentEntity();
+        comment.postId = param.postId;
         comment.content = param.content;
         comment.author = param.author;
+        if (param.parentId) {
+            comment.parentId = param.parentId;
+        }
         return comment;
     }
 

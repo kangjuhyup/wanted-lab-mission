@@ -3,6 +3,8 @@ import { CommentService } from "./service/comment.service";
 import { GetCommentsQuery } from "./controller/v1/dto/request/get.comments";
 import { GetCommentsResponse } from "./controller/v1/dto/response/get.comments";
 import { GetCommentChildrenQuery } from "./controller/v1/dto/request/get.comment.children";
+import { CreateCommentBody } from "./controller/v1/dto/request/create.comment";
+import { CreateCommentResponse } from "./controller/v1/dto/response/create.comment";
 
 @Injectable()
 export class CommentFacade {
@@ -28,5 +30,13 @@ export class CommentFacade {
             entities.length,
             entities
         );
+    }
+
+    async createComment(
+        param : {
+            postId: number, commentId?: number, body: CreateCommentBody
+        }) {
+        const entity = await this.commentService.createComment(param);
+        return CreateCommentResponse.of(entity);
     }
 }

@@ -25,10 +25,19 @@ export class CommentService {
         return await this.commentRepository.selectChild(commentId);
     }
 
-    async createComment(body : CreateCommentBody) 
+    async createComment(param : {
+        postId : number,
+        body : CreateCommentBody,
+        commentId? : number
+    }) 
     {
-        const comment = CommentEntity.of(body);
-        return await this.commentRepository.insert(comment);
+        const comment = CommentEntity.of({
+            postId : param.postId,
+            parentId : param.commentId,
+            ...param.body
+        });
+        await this.commentRepository.insert(comment);
+        return comment;
     }
 
     async deleteComment(commentId : number) {
