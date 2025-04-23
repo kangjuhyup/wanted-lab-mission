@@ -9,10 +9,12 @@ import { UpdatePostBody } from "./controller/v1/dto/request/update.post";
 import { CommentService } from "../comment/service/comment.service";
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { NotificationPostPayload } from "../notification/payload/notification.post.payload";
+import { TransactionService } from "@/database/transaction/transaction.service";
 
 @Injectable()
 export class PostFacade {
     constructor(
+        private readonly transactionService : TransactionService,
         private readonly postService : PostService,
         private readonly commentService : CommentService,
         private readonly eventEmitter: EventEmitter2

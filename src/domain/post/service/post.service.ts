@@ -34,7 +34,7 @@ export class PostService {
     }
 
     async createPost(body : CreatePostBody) {
-        const post = PostEntity.of(body);
+        const post = await PostEntity.of(body);
         await this.postRepository.insert(post);
         return post;
     }

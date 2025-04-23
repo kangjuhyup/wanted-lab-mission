@@ -6,6 +6,7 @@ import { PostService } from "./service/post.service";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { PostEntity } from "@/database/entity/post.entity";
 import { PostRepository } from "./repository/post.repository";
+import { TransactionService } from "@/database/transaction/transaction.service";
 
 @Module({
     imports : [
@@ -18,6 +19,7 @@ import { PostRepository } from "./repository/post.repository";
         PostController
     ],
     providers : [
+        TransactionService,
         PostFacade,
         PostService,
         PostRepository,

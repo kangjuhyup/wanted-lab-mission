@@ -24,7 +24,7 @@ export class PostEntity extends DefaultEntity {
     @OneToMany(() => CommentEntity, comment => comment.post, { nullable: true })
     comments?: CommentEntity[];
     
-    static of(param : {
+    static async of(param : {
         title : string,
         content : string,
         author : string,
@@ -34,7 +34,7 @@ export class PostEntity extends DefaultEntity {
         post.title = param.title;
         post.content = param.content;
         post.author = param.author;
-        post.setPassword(param.password);
+        await post.setPassword(param.password);
         return post;
     }   
 
