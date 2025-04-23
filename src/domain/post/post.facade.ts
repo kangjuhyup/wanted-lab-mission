@@ -40,7 +40,7 @@ export class PostFacade {
 
     @Transaction()
     async updatePost(postId : number, body : UpdatePostBody) {
-        const post = await this.postService.getPostWithComments(postId);
+        const post = await this.postService.getPost(postId);
         if(!post) {
             throw new NotFoundException('게시글을 찾을 수 없습니다.');
         }
