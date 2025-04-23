@@ -7,13 +7,9 @@ import { EntityTarget, FindOptionsWhere, Repository } from "typeorm";
 export class CommentRepository extends TransactionRepository<CommentEntity> {
 
     constructor(
-        private readonly commentRepository : Repository<CommentEntity>
+        private readonly repo : Repository<CommentEntity>
     ) {
-        super();
-    }
-
-    getEntityClass() : EntityTarget<CommentEntity> {
-        return CommentEntity;
+        super(repo);
     }
 
     async count(param : {
@@ -26,7 +22,7 @@ export class CommentRepository extends TransactionRepository<CommentEntity> {
         if (param.parentId) {
             where.parentId = param.parentId;
         }
-        return await this.commentRepository.count({
+        return await this.repository.count({
             where
         });
     }
@@ -98,7 +94,7 @@ export class CommentRepository extends TransactionRepository<CommentEntity> {
      */
     private async loadChildrenRecursively(comment: CommentEntity): Promise<void> {
         const children = await this.repository.find({
-            where: { parentId: comment.id }
+            where: { parentId: comment.commentId }
         });
         
         if (children.length > 0) {
@@ -113,10 +109,10 @@ export class CommentRepository extends TransactionRepository<CommentEntity> {
     }
 
     async insert(entity : CommentEntity) {
-        return await this.commentRepository.insert(entity);
+        return await this.repository.insert(entity);
     }
 
     async delete(commentId : number) {
-        return await this.commentRepository.softDelete(commentId);
+        return await this.repository.softDelete(commentId);
     }
 }

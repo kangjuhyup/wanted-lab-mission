@@ -7,15 +7,11 @@ import { TransactionRepository } from "@/database/transaction/transaction.reposi
 @Injectable()
 export class PostRepository extends TransactionRepository<PostEntity> {
     
-    protected getEntityClass(): EntityTarget<PostEntity> {
-        return PostEntity;
-    }
-  
     constructor(
         @InjectRepository(PostEntity)
         private readonly repo: Repository<PostEntity>,
     ){
-        super();
+        super(repo);
     }
 
     async selectMany(param : {
@@ -71,10 +67,10 @@ export class PostRepository extends TransactionRepository<PostEntity> {
     }
 
     async update(post: PostEntity) {
-        return await this.repository.update(post.id, post);
+        return await this.repository.update(post.postId, post);
     }
 
     async delete(post: PostEntity) {
-        return await this.repository.softDelete(post.id);
+        return await this.repository.softDelete(post.postId);
     }
 }

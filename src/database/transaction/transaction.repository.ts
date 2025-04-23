@@ -1,29 +1,27 @@
-import { EntityManager, EntityTarget, Repository, ObjectLiteral, QueryBuilder } from 'typeorm';
+import { EntityManager, Repository, ObjectLiteral, QueryBuilder } from 'typeorm';
 
 // 트랜잭션을 지원하는 추상 레포지토리 클래스
 export abstract class TransactionRepository<T extends ObjectLiteral> {
-  protected em: EntityManager;
+  protected em?: EntityManager;
+  protected fallbackRepo: Repository<T>;
 
-  constructor() {}
+  constructor(fallbackRepo: Repository<T>) {
+    this.fallbackRepo = fallbackRepo;
+  }
 
   setEntityManager(em: EntityManager) {
     this.em = em;
   }
-
-  get repository() : Repository<T> {
-    return this.getRepository();
-  }
-
-  getQueryBuilder(alias:string) : QueryBuilder<T> {
-    return this.getRepository().createQueryBuilder(alias);
-  }
-
-  getRepository() : Repository<T> {
-    if (!this.em) {
-      throw new Error('EntityManager가 설정되지 않았습니다. setEntityManager를 먼저 호출해야 합니다.');
+ 
+  get repository(): Repository<T> {
+    if (this.em) {
+      const entityClass = this.fallbackRepo.metadata.target as Function;
+      return this.em.getRepository<T>(entityClass);
     }
-    return this.em.getRepository(this.getEntityClass());
+    return this.fallbackRepo;
   }
 
-  protected abstract getEntityClass(): EntityTarget<T>;
+  getQueryBuilder(alias: string): QueryBuilder<T> {
+    return this.repository.createQueryBuilder(alias);
+  }
 }
