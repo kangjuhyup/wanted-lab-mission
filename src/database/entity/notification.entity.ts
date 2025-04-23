@@ -1,6 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { DefaultEntity } from "./default.entity";
 import { NotificationType } from "@/common/enum/notification.enum";
+import { NotificationTypeEntity } from "./notification.type.entity";
 
 @Entity()
 export class NotificationEntity extends DefaultEntity {
@@ -12,7 +13,11 @@ export class NotificationEntity extends DefaultEntity {
     userName : string;
 
     @Column()
-    type : NotificationType;
+    typeId : number;
+
+    @ManyToOne(() => NotificationTypeEntity, notificationType => notificationType.notifications)
+    @JoinColumn({name : 'typeId'})
+    type : NotificationTypeEntity;
 
     @Column()
     message : string;
@@ -22,15 +27,13 @@ export class NotificationEntity extends DefaultEntity {
 
     static of(param : {
         userName : string,
-        type : NotificationType,
+        typeId : number,
         message : string,
-        isRead : boolean
     }) {
         const notification = new NotificationEntity();
         notification.userName = param.userName;
-        notification.type = param.type;
+        notification.typeId = param.typeId;
         notification.message = param.message;
-        notification.isRead = param.isRead;
         return notification;
     }
 }
