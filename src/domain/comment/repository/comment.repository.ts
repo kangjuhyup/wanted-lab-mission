@@ -47,12 +47,12 @@ export class CommentRepository extends TransactionRepository<CommentEntity> {
                 commentId : MoreThan(param.cursor)
             })
         }
-        
         if (param.limit) {
             qb.limit(param.limit);
         }
+
         
-        if (param.offset) {
+        if (!param.cursor && param.offset) {
             qb.offset(param.offset);
         }
 

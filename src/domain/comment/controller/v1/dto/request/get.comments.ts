@@ -1,14 +1,14 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { Transform } from "class-transformer";
 import { IsNotEmpty, IsNumber, IsOptional, Min } from "class-validator";
 
 export class GetCommentsQuery {
-    @ApiProperty()
+    @ApiPropertyOptional()
     @Transform(({ value }) => Number(value))
     @IsOptional()
     @IsNumber()
     @Min(1)
-    readonly cursor : number;
+    readonly cursor? : number;
 
     @ApiProperty()
     @Transform(({ value }) => Number(value))
@@ -17,10 +17,10 @@ export class GetCommentsQuery {
     @Min(1)
     readonly limit : number;
 
-    @ApiProperty()
+    @ApiPropertyOptional()
     @Transform(({ value }) => Number(value))
     @IsOptional()
     @IsNumber()
     @Min(0)
-    readonly offset : number;
+    readonly offset? : number;
 }
