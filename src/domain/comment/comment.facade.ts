@@ -25,7 +25,7 @@ export class CommentFacade {
         );
     }
 
-    async getCommentChildren(postId: number, commentId: number, query: GetCommentChildrenQuery) {
+    async getCommentChildren(commentId: number) {
         //TODO : 하위 Depth 가 너무 깊어짐에 따른 성능 이슈 조심
         //TODO : 하위 Depth 내에 childs 가 너무 많을 경우 페이지네이션 필요
         const entities = await this.commentService.getCommentChilds(commentId);

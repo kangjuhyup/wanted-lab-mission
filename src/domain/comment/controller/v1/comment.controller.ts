@@ -23,13 +23,11 @@ export class CommentController {
 
     @Get(':postId/:commentId')
     async getChildComment(
-        @Param() commentIdParam: CommentIdParam, 
-        @Query() query: GetCommentChildrenQuery) {
+        @Param() commentIdParam: CommentIdParam
+    ) {
         return ResponseDto.Success(
             await this.commentFacade.getCommentChildren(
-                commentIdParam.postId, 
                 commentIdParam.commentId,
-                query
             )
         );
     }
