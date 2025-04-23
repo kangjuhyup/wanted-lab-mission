@@ -1,7 +1,8 @@
-import { Column, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { DefaultEntity } from "./default.entity";
 import { NotificationKeywordEntity } from "./notification.keyword.entity";
 
+@Entity('tb_keyword')
 export class KeywordEntity extends DefaultEntity {
 
     @PrimaryGeneratedColumn()

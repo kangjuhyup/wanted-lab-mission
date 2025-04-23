@@ -3,7 +3,7 @@ import * as bcrypt from "bcrypt"; // 비밀번호 해싱을 위한 bcrypt 모듈
 import { CommentEntity } from "./comment.entity";
 import { DefaultEntity } from "./default.entity";
 
-@Entity()
+@Entity('tb_post')
 export class PostEntity extends DefaultEntity {
 
     @PrimaryGeneratedColumn()

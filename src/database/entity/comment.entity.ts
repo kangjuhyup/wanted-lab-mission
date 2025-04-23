@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToMan
 import { PostEntity } from "./post.entity";
 import { DefaultEntity } from "./default.entity";
 
-@Entity()
+@Entity('tb_comment')
 export class CommentEntity extends DefaultEntity {
 
     @PrimaryGeneratedColumn()

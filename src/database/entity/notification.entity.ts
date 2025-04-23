@@ -3,7 +3,7 @@ import { DefaultEntity } from "./default.entity";
 import { NotificationType } from "@/common/enum/notification.enum";
 import { NotificationTypeEntity } from "./notification.type.entity";
 
-@Entity()
+@Entity('tb_notification')
 export class NotificationEntity extends DefaultEntity {
     @PrimaryGeneratedColumn()
     notificationId : number;

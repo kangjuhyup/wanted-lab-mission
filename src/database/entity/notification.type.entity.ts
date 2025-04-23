@@ -1,7 +1,8 @@
 import { NotificationType } from "@/common/enum/notification.enum";
-import { Column, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { NotificationEntity } from "./notification.entity";
 
+@Entity('tb_notification_type')
 export class NotificationTypeEntity {
     @PrimaryGeneratedColumn()
     notificationTypeId : number;

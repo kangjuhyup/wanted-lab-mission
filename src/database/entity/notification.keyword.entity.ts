@@ -2,7 +2,7 @@ import { Entity, ManyToOne, PrimaryColumn } from "typeorm";
 import { DefaultEntity } from "./default.entity";
 import { KeywordEntity } from "./keyword.entity";
 
-@Entity()
+@Entity('tb_notification_keyword')
 export class NotificationKeywordEntity extends DefaultEntity {
     @PrimaryColumn()
     userName: string;
