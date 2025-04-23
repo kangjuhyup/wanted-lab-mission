@@ -10,14 +10,14 @@ export class NotificationCommentPayload {
     }
 
     get postId() {
-        return this.postId;
+        return this._postId;
     }
 
     get commentId() {
-        return this.commentId;
+        return this._commentId;
     }
 
     get text() {
-        return this.text;
+        return this._text;
     }
 }
