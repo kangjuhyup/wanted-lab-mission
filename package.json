@@ -6,7 +6,6 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "set": "yarn dlx @yarnpkg/sdks vscode",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "run:db": "docker compose up -d && nest build && typeorm migration:run -d dist/database/datasource/mariadb.ds.js",
@@ -32,6 +31,8 @@
     "@nestjs/platform-express": "^11.0.1",
     "@nestjs/typeorm": "^11.0.0",
     "bcrypt": "^5.1.1",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.1",
     "dotenv": "^16.5.0",
     "mysql2": "^3.14.0",
     "reflect-metadata": "^0.2.2",
