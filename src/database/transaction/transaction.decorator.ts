@@ -28,7 +28,9 @@ export function Transaction() {
         // TransactionService 접근
         const transactionService = this.transactionService;
         if (!transactionService) {
-          throw new Error('TransactionService가 주입되지 않았습니다.');
+          throw new Error(
+            `${target.constructor.name} 클래스에 TransactionService가 주입되지 않았습니다.`,
+          );
         }
         
         // TypeORM에서는 withTransaction 메서드를 통해 트랜잭션 실행
