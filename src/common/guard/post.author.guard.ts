@@ -22,8 +22,8 @@ import {
     async canActivate(context: ExecutionContext): Promise<boolean> {
       const request = context.switchToHttp().getRequest<Request>();
       const postId = request.params.postId;
-      const password = request.body.password;
-      if(!postId) {
+      const password = request.body?.password || request.get('x-password') || request.headers['x-password'];
+      if(!password || !postId) {
         throw new UnauthorizedException('게시글 권한이 없습니다.');
       }
       const post = await this.postRepository.selectOne({ id: Number(postId), withComment: false });

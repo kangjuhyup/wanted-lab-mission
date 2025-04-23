@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post, Query, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post, Query, UseGuards, Headers } from "@nestjs/common";
 import { ResponseDto } from "@common/dto/response.dto";
 import { GetPostsQuery } from "./dto/request/get.posts";
 import { PostFacade } from "../../post.facade";
@@ -6,7 +6,7 @@ import { PostAuthGuard } from "@/common/guard/post.author.guard";
 import { CreatePostBody } from "./dto/request/create.post";
 import { UpdatePostBody } from "./dto/request/update.post";
 import { PostIdParam } from "./dto/request/post";
-import { ApiCreatedResponse, ApiNoContentResponse, ApiOkResponse, ApiOperation } from "@nestjs/swagger";
+import { ApiCreatedResponse, ApiHeader, ApiNoContentResponse, ApiOkResponse, ApiOperation } from "@nestjs/swagger";
 import { GetPostsResponse } from "./dto/response/get.posts";
 import { CreatePostResponse } from "./dto/response/create.post";
 
@@ -57,8 +57,9 @@ export class PostController {
         );
     }
 
-    @Delete()
+    @Delete(':postId')
     @ApiOperation({ summary: '게시글 삭제' })
+    @ApiHeader({ name: 'X-Password', required: true })
     @ApiNoContentResponse()
     @HttpCode(204)
     @UseGuards(PostAuthGuard)
