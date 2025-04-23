@@ -1,10 +1,26 @@
 import { PostEntity } from "@/database/entity/post.entity";
+import { ApiProperty } from "@nestjs/swagger";
+import { Type } from "class-transformer";
+import { IsNotEmpty, IsNumber, IsString, ValidateNested } from "class-validator";
 
 export class PostResponse {
+    @ApiProperty()
+    @IsNotEmpty()
+    @IsNumber()
     private id : number;
+    @ApiProperty()
+    @IsNotEmpty()
+    @IsString()
     private title : string;
+    @ApiProperty()
+    @IsNotEmpty()
+    @IsString()
     private author : string;
+    @ApiProperty()
+    @IsNotEmpty()
     private createdAt : Date;
+    @ApiProperty()
+    @IsNotEmpty()
     private updatedAt : Date;
 
     static of(param : PostEntity) {
@@ -19,8 +35,18 @@ export class PostResponse {
 }
 
 export class GetPostsResponse {
+    @ApiProperty()
+    @IsNotEmpty()
+    @IsNumber()
     private cursor : number;
+    @ApiProperty()
+    @IsNotEmpty()
+    @IsNumber()
     private totalCount : number;
+    @ApiProperty({ type: () => [PostResponse] })
+    @Type(() => PostResponse)
+    @IsNotEmpty()
+    @ValidateNested({ each: true })
     private posts : PostResponse[];
 
     static of(
