@@ -2,7 +2,7 @@ import { CommentEntity } from "@/database/entity/comment.entity";
 import { InjectRepository } from '@nestjs/typeorm';
 import { TransactionRepository } from "@/database/transaction/transaction.repository";
 import { Injectable } from "@nestjs/common";
-import { EntityTarget, FindOptionsWhere, Repository } from "typeorm";
+import { FindOptionsWhere, MoreThan, Repository } from "typeorm";
 
 @Injectable()
 export class CommentRepository extends TransactionRepository<CommentEntity> {
@@ -38,12 +38,14 @@ export class CommentRepository extends TransactionRepository<CommentEntity> {
     }) : Promise<CommentEntity[]> {
         const qb = this.getQueryBuilder('comment').select();
         
-        if (param.postId) {
-            qb.andWhere('comment.postId = :postId', { postId: param.postId });
-        }
+            qb.where({
+                postId: param.postId
+            });
         
         if (param.cursor) {
-            qb.andWhere('comment.id < :cursor', { cursor: param.cursor });
+            qb.andWhere({
+                commentId : MoreThan(param.cursor)
+            })
         }
         
         if (param.limit) {
@@ -75,7 +77,9 @@ export class CommentRepository extends TransactionRepository<CommentEntity> {
         const qb = this.getQueryBuilder('comment').select();
         
         if (param.id) {
-            qb.andWhere('comment.id = :id', { id: param.id });
+            qb.where({
+                commentId : param.id
+            });
         }
         
         const comment = await qb.getOne();
