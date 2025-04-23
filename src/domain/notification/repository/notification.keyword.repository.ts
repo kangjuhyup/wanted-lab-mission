@@ -26,5 +26,8 @@ export class NotificationKeywordRepository extends TransactionRepository<Notific
         }
         return qb.getMany();
     }
-    
+
+    async insert(entity : NotificationKeywordEntity) {
+        return this.repository.insert(entity);
+    }
 }

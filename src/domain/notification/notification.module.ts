@@ -8,13 +8,16 @@ import { NotificationTypeEntity } from "@/database/entity/notification.type.enti
 import { NotificationKeywordRepository } from "./repository/notification.keyword.repository";
 import { NotificationRepository } from "./repository/notification.repository";
 import { NotificationTypeRepository } from "./repository/notification.type.repository";
+import { KeywordEntity } from "@/database/entity/keyword.entity";
+import { KeywordRepository } from "./repository/keyword.repository";
 
 @Module({
     imports : [
         TypeOrmModule.forFeature([
             NotificationEntity,
             NotificationKeywordEntity,
-            NotificationTypeEntity
+            NotificationTypeEntity,
+            KeywordEntity,
         ])
     ],
     providers : [
@@ -22,7 +25,11 @@ import { NotificationTypeRepository } from "./repository/notification.type.repos
         NotificationListener,
         NotificationKeywordRepository,
         NotificationRepository,
-        NotificationTypeRepository
+        NotificationTypeRepository,
+        KeywordRepository,
+    ],
+    exports: [
+        NotificationService,
     ]
 })
 export class NotificationModule {}

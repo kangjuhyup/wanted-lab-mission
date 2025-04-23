@@ -5,14 +5,40 @@ import { NotificationRepository } from "../repository/notification.repository";
 import { NotificationKeywordEntity } from "@/database/entity/notification.keyword.entity";
 import { getNotificationTypeText } from '../../../common/enum/notification.enum';
 import { NotificationTypeRepository } from "../repository/notification.type.repository";
+import { KeywordRepository } from "../repository/keyword.repository";
+import { KeywordEntity } from "@/database/entity/keyword.entity";
 
 @Injectable()
 export class NotificationService {
     constructor(
+        private readonly keywordRepository : KeywordRepository,
         private readonly notificationKeywordRepository : NotificationKeywordRepository,
         private readonly notificationRepository : NotificationRepository,
         private readonly notificationTypeRepository : NotificationTypeRepository
     ) {}
+
+    async getKeyword(keyword : string) {
+        return await this.keywordRepository.selectWhere({
+            keyword
+        });
+    }
+
+    async createKeyword(keyword : string) {
+        const entity = KeywordEntity.of({
+            keyword
+        });
+        await this.keywordRepository.insert(entity);
+        return entity;
+    }
+
+    async createNotificationKeyword(keywordId : number, userName : string) {
+        const entity = NotificationKeywordEntity.of({
+            keywordId,
+            userName
+        });
+        await this.notificationKeywordRepository.insert(entity);
+        return entity;
+    }
 
     async findKeywords(text:string) {
         return await this.notificationKeywordRepository.selectWhere({

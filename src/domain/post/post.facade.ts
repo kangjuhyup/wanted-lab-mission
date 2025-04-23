@@ -31,7 +31,7 @@ export class PostFacade {
     @Transaction()
     async createPost(body : CreatePostBody) {
         const entity = await this.postService.createPost(body);
-        this.eventEmitter.emit('notification.keyword', new NotificationPostPayload(
+        this.eventEmitter.emit('notification.post.keyword', new NotificationPostPayload(
             entity.postId,
             `${entity.title} ${entity.content}`
         ));
@@ -45,7 +45,7 @@ export class PostFacade {
             throw new NotFoundException('게시글을 찾을 수 없습니다.');
         }
         const entity = await this.postService.updatePost(post, body);
-        this.eventEmitter.emit('notification.keyword', new NotificationPostPayload(
+        this.eventEmitter.emit('notification.post.keyword', new NotificationPostPayload(
             entity.postId,
             `${entity.title} ${entity.content}`
         ));
