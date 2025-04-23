@@ -53,7 +53,9 @@ export class PostRepository extends TransactionRepository<PostEntity> {
     }) {
         const qb = this.getQueryBuilder('post').select();
         
-        qb.where('post.id = :id', { id: param.id });
+        qb.where({
+            postId : param.id
+        });
         
         if(param.withComment) {
             qb.leftJoinAndSelect('post.comments', 'comment');
