@@ -49,7 +49,7 @@ export class PostFacade {
             entity.postId,
             `${entity.title} ${entity.content}`
         ));
-        return CreatePostResponse.of(entity.postId);
+        return;
     }
 
     @Transaction()
