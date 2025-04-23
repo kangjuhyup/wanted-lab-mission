@@ -1,9 +1,8 @@
-import { Entity, ManyToOne, PrimaryColumn } from "typeorm";
-import { DefaultEntity } from "./default.entity";
+import { Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
 import { KeywordEntity } from "./keyword.entity";
 
 @Entity('tb_notification_keyword')
-export class NotificationKeywordEntity extends DefaultEntity {
+export class NotificationKeywordEntity {
     @PrimaryColumn()
     userName: string;
 
@@ -11,6 +10,7 @@ export class NotificationKeywordEntity extends DefaultEntity {
     keywordId: number;  
 
     @ManyToOne(() => KeywordEntity, keyword => keyword.notificationKeywords)
+    @JoinColumn({name : 'keywordId'})
     keyword: KeywordEntity;
 
     static of(param : {
