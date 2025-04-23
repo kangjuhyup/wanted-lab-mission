@@ -89,7 +89,7 @@ describe('PostService', () => {
     it('PostEntity.of 호출 후 insert 및 생성된 엔티티 반환', async () => {
       const body = { title: 't', content: 'c', author: 'a', password: 'p' };
       const mockPost = {} as PostEntity;
-      jest.spyOn(PostEntity, 'of').mockReturnValue(mockPost);
+      jest.spyOn(PostEntity, 'of').mockResolvedValue(mockPost);
 
       const result = await service.createPost(body as any);
 
