@@ -1,4 +1,5 @@
 import { CommentEntity } from "@/database/entity/comment.entity";
+import { InjectRepository } from '@nestjs/typeorm';
 import { TransactionRepository } from "@/database/transaction/transaction.repository";
 import { Injectable } from "@nestjs/common";
 import { EntityTarget, FindOptionsWhere, Repository } from "typeorm";
@@ -7,6 +8,7 @@ import { EntityTarget, FindOptionsWhere, Repository } from "typeorm";
 export class CommentRepository extends TransactionRepository<CommentEntity> {
 
     constructor(
+        @InjectRepository(CommentEntity)
         private readonly repo : Repository<CommentEntity>
     ) {
         super(repo);
