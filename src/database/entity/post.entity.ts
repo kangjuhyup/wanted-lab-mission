@@ -7,7 +7,7 @@ import { DefaultEntity } from "./default.entity";
 export class PostEntity extends DefaultEntity {
 
     @PrimaryGeneratedColumn()
-    id: number;
+    postId: number;
 
     @Column()
     title: string;

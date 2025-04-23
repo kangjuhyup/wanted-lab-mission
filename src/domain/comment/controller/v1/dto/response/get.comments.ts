@@ -9,7 +9,7 @@ export class CommentResponse {
 
     static of(entity:CommentEntity) {
         const comment = new CommentResponse();
-        comment.id = entity.id;
+        comment.id = entity.commentId;
         comment.content = entity.content;
         comment.author = entity.author;
         comment.createdAt = entity.createdAt;

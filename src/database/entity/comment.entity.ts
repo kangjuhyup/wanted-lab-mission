@@ -6,7 +6,7 @@ import { DefaultEntity } from "./default.entity";
 export class CommentEntity extends DefaultEntity {
 
     @PrimaryGeneratedColumn()
-    id: number;
+    commentId: number;
 
     @Column()
     content: string;

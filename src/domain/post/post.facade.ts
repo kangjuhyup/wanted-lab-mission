@@ -26,7 +26,7 @@ export class PostFacade {
     @Transaction()
     async createPost(body : CreatePostBody) {
         const entity = await this.postService.createPost(body);
-        return CreatePostResponse.of(entity.id);
+        return CreatePostResponse.of(entity.postId);
     }
 
     @Transaction()
@@ -36,7 +36,7 @@ export class PostFacade {
             throw new NotFoundException('게시글을 찾을 수 없습니다.');
         }
         const entity = await this.postService.updatePost(post, body);
-        return CreatePostResponse.of(entity.id);
+        return CreatePostResponse.of(entity.postId);
     }
 
     @Transaction()
@@ -47,7 +47,7 @@ export class PostFacade {
         }
         await this.postService.deletePost(post);
         post.comments?.forEach(async (comment) => {
-            await this.commentService.deleteComment(comment.id);
+            await this.commentService.deleteComment(comment.commentId);
         });
         return;
     }

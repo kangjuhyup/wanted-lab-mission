@@ -9,7 +9,7 @@ export class PostResponse {
 
     static of(param : PostEntity) {
         const response = new PostResponse();
-        response.id = param.id;
+        response.id = param.postId;
         response.title = param.title;
         response.author = param.author;
         response.createdAt = param.createdAt;
@@ -28,7 +28,7 @@ export class GetPostsResponse {
         posts : PostEntity[]
     ) {
         const response = new GetPostsResponse();
-        response.cursor = posts[posts.length - 1]?.id;
+        response.cursor = posts[posts.length - 1]?.postId;
         response.totalCount = totalCount;
         response.posts = posts.map(PostResponse.of);
         return response;
