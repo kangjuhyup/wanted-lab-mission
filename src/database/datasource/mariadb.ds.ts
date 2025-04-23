@@ -14,8 +14,8 @@ export const typeOrmConfig: DataSourceOptions = {
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     entities: [PostEntity, CommentEntity],
-    synchronize: true, // 개발 환경에서만 사용
     logging: process.env.NODE_ENV === 'development',
+    migrations: [__dirname + '/../migration/*.{js,ts}'],
 };
 
 // TypeORM 데이터소스 인스턴스

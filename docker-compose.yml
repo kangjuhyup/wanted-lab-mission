@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  # MariaDB 서비스
+  db:
+    image: mariadb:10.5
+    container_name: maria_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword  # root 비밀번호 설정
+      MYSQL_DATABASE: wanted_lab_db     # 기본 생성할 DB 이름
+      MYSQL_USER: user                  # 일반 사용자 이름
+      MYSQL_PASSWORD: userpassword      # 일반 사용자 비밀번호
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  # Redis 서비스
+  redis:
+    image: redis:6-alpine
+    container_name: redis_cache
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+volumes:
+  db_data:
+  redis_data:
