@@ -7,7 +7,6 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
 import { EventModule } from './domain/event.module';
 import { RouterModule } from './domain/router.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
-import { GlobalExceptionInterceptor } from '@/common/interceptor/global.exception.interceptor';
 
 @Module({
   imports: [
@@ -19,7 +18,6 @@ import { GlobalExceptionInterceptor } from '@/common/interceptor/global.exceptio
   controllers: [AppController],
   providers: [
     AppService,
-    { provide: APP_INTERCEPTOR, useClass: GlobalExceptionInterceptor },
   ],
 })
 export class AppModule {}
