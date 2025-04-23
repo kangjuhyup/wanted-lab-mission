@@ -5,12 +5,15 @@ import { GetCommentsResponse } from "./controller/v1/dto/response/get.comments";
 import { GetCommentChildrenQuery } from "./controller/v1/dto/request/get.comment.children";
 import { CreateCommentBody } from "./controller/v1/dto/request/create.comment";
 import { CreateCommentResponse } from "./controller/v1/dto/response/create.comment";
+import { EventEmitter2 } from "@nestjs/event-emitter";
+import { NotificationCommentPayload } from "../notification/payload/notification.comment.payload";
 
 @Injectable()
 export class CommentFacade {
 
     constructor(
-        private readonly commentService : CommentService
+        private readonly commentService : CommentService,
+        private readonly eventEmitter: EventEmitter2
     ) {}
 
     async getComments(postId:number, query : GetCommentsQuery) {
@@ -37,6 +40,11 @@ export class CommentFacade {
             postId: number, commentId?: number, body: CreateCommentBody
         }) {
         const entity = await this.commentService.createComment(param);
+        this.eventEmitter.emit('notification.comment.keyword', new NotificationCommentPayload(
+            param.postId,
+            entity.commentId,
+            entity.content
+        ));
         return CreateCommentResponse.of(entity);
     }
 }
